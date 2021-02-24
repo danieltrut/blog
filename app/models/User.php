@@ -3,10 +3,16 @@
 
 class User
 {
+    private $db;
 
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->db = new Database();
+    }
 
-}
-/**
     public function findUserByEmail($email)
     {
         $this->db->query('SELECT * FROM users WHERE email=:email');
@@ -21,7 +27,7 @@ class User
 
     public function register($data)
     {
-        $this->db->query('INSERT INTO users SET
+        $this->db->query('INSERT INTO users SET 
                 name=:name,
                 email=:email,
                 password=:password
@@ -51,4 +57,4 @@ class User
 
     }
 
-}*/
+}

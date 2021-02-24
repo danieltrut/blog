@@ -20,16 +20,15 @@ class Database
         $dsn = 'mysql:host='.$this->host.';dbname='.$this->dbname;
         $options = array(
             PDO::ATTR_PERSISTENT => true,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            PDO::ATTR_ERRMODE =>PDO::ERRMODE_EXCEPTION
         );
         try {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
-        } catch (PDOException $e) {
+        }catch (PDOException $e){
             $this->error = $e->getMessage();
             echo $this->error.'<br>';
         }
     }
-
     public function query($sql){
         $this->stmt = $this->dbh->prepare($sql);
     }
@@ -52,20 +51,26 @@ class Database
         }
         $this->stmt->bindParam($param, $value, $type);
     }
+
     public function execute(){
         return $this->stmt->execute();
     }
-    public function getOne() {
+
+    public function getOne()
+    {
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_OBJ);
     }
-    public function getAll() {
+
+    public function getAll()
+    {
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function rowCount() {
+    public function rowCount(){
         return $this->stmt->rowCount();
     }
+
 
 }
